@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Linha do Tempo - Bauru</title>
+
+<style>
+body{
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #FFEE8C, #ffd54f);
+    text-align: center;
+    padding-top: 80px;
+}
+
+h1{
+    margin: 30px 0;
+}
+
+.container{
+    position: relative;
+    width: 95%;
+    margin: 100px auto;
+}
+
+.linha{
+    height: 6px;
+    background: #333;
+    position: absolute;
+    top: 25px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.pontos{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+}
+
+.ponto{
+    cursor: pointer;
+}
+
+.bola{
+    width: 18px;
+    height: 18px;
+    background: red;
+    border-radius: 50%;
+    margin: auto;
+}
+
+.ponto span{
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.info{
+    margin-top: 60px;
+    font-size: 18px;
+    padding: 20px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    min-height: 120px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.4s;
+}
+
+.info.mostrar{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.info img{
+    width: 100%;
+    max-width: 500px;
+    margin-top: 15px;
+    border-radius: 10px;
+    transition: 0.4s;
+}
+
+.info img:hover{
+    transform: scale(1.03);
+}
+
+.btn-voltar{
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    padding: 8px 14px;
+    font-size: 14px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.btn-voltar:hover{
+    background: #555;
+}
+
+.video-container{
+    max-width: 800px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.video-container iframe{
+    border-radius: 10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<button onclick="window.location.href='página.html'" class="btn-voltar">⬅ Início</button>
+
+<h1>Linha do Tempo de Bauru</h1>
+
+<div class="container">
+
+    <div class="linha"></div>
+
+    <div class="pontos">
+        <div class="ponto" onclick="mostrar(0)"><div class="bola"></div><span>1900</span></div>
+        <div class="ponto" onclick="mostrar(1)"><div class="bola"></div><span>1920</span></div>
+        <div class="ponto" onclick="mostrar(2)"><div class="bola"></div><span>1930</span></div>
+        <div class="ponto" onclick="mostrar(3)"><div class="bola"></div><span>1940</span></div>
+        <div class="ponto" onclick="mostrar(4)"><div class="bola"></div><span>1950</span></div>
+        <div class="ponto" onclick="mostrar(5)"><div class="bola"></div><span>1970</span></div>
+        <div class="ponto" onclick="mostrar(6)"><div class="bola"></div><span>1990</span></div>
+        <div class="ponto" onclick="mostrar(7)"><div class="bola"></div><span>2020</span></div>
+    </div>
+
+</div>
+
+<div class="info" id="infoBox">
+    <h2 id="ano"></h2>
+    <p id="texto">Clique em um ano </p>
+    <img id="imagem" style="display:none;">
+</div>
+
+<div class="video-container">
+    <h2>Vídeo sobre a História de Bauru</h2>
+
+    <iframe 
+        width="100%" 
+        height="400"
+        src="https://youtube.com/embed/qmz4sQKVI2w?si=1yWhChbFterIjCVB"
+        title="História de Bauru"
+        frameborder="0"
+        allowfullscreen>
+    </iframe>
+</div>
+
+<script>
+const dados = [
+    { texto: "No início do século XX, a região onde hoje está Bauru começava a ser ocupada.", img: "images-1.png" },
+    { texto: "Bauru cresceu com a chegada de novos moradores e expansão do comércio.", img: "images-2.png" },
+    { texto: "Consolidação urbana e crescimento econômico.", img: "images-3.png" },
+    { texto: "Forte desenvolvimento ferroviário.", img: "images-4.png" },
+    { texto: "Surgimento do famoso lanche Bauru.", img: "LancheBauru.png" },
+    { texto: "Expansão urbana e novos bairros.", img: "imagem7.png" },
+    { texto: "Modernização da cidade.", img: "imagem8.png" },
+    { texto: "Cidade moderna e estruturada.", img: "Bauru2020.png" }
+];
+
+function mostrar(index){
+    document.getElementById("texto").innerText = dados[index].texto;
+    document.getElementById("ano").innerText = document.querySelectorAll(".ponto span")[index].innerText;
+
+    const img = document.getElementById("imagem");
+    img.src = dados[index].img;
+    img.style.display = "block";
+
+    document.querySelectorAll(".ponto").forEach(p => p.classList.remove("ativa"));
+    document.querySelectorAll(".ponto")[index].classList.add("ativa");
+
+    const info = document.getElementById("infoBox");
+    info.classList.remove("mostrar");
+
+    setTimeout(() => {
+        info.classList.add("mostrar");
+    }, 50);
+}
+</script>
+
+</body>
+</html>
